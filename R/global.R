@@ -1,6 +1,6 @@
 ###################
 # global.R
-# 
+#
 # Anything you want shared between your ui and server, define here.
 ###################
 
@@ -24,8 +24,16 @@ library(Cairo)
 library(RColorBrewer)
 library(roxygen2)
 
+
+
+source('./R/ui/header.R')
+source('./R/ui/sidebar.R')
+source('./R/ui/body.R')
+
 # load data and functions
-load('./R/toydata_full.RData')
+load('./data/toydata.rda')
+load('./data/toynetwork.rda')
+
 source('./R/functions.R')
 
 #set options

@@ -1,9 +1,11 @@
 Package: shinyscaffold
-Title: What the Package Does (one line, title case)
+Title: A shinydashboard scaffold
 Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: The package provides a scaffold for feedback dashboard from the input data.
 Depends: R (>= 3.5.0)
-License: What license is it under?
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.0
+Imports: shiny, shinyjs, shinydashboard, shinythemes, networkD3, igraph, htmltools, dplyr, ggplot2, fmsb, reshape, reshape2, Cairo, RColorBrewer, roxygen2
