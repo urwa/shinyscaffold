@@ -8,4 +8,7 @@ License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0
-Imports: shiny, shinyjs, shinydashboard, shinythemes, networkD3, igraph, htmltools, dplyr, ggplot2, fmsb, reshape, reshape2, Cairo, RColorBrewer, roxygen2
+Imports: shiny, shinydashboard,
+         igraph, htmltools, 
+         plyr, dplyr, ggplot2, reshape2, 
+         Cairo, RColorBrewer, roxygen2
