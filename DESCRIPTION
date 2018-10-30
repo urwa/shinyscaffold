@@ -10,5 +10,5 @@ LazyData: true
 RoxygenNote: 6.1.0
 Imports: shiny, shinydashboard,
          igraph, htmltools, 
-         plyr, dplyr, ggplot2, reshape2, 
+         plyr, dplyr, ggplot2, reshape, reshape2, 
          Cairo, RColorBrewer, roxygen2

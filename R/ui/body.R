@@ -66,4 +66,3 @@ shinyBody <- function () {
       )
   )
 }
-
