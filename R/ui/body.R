@@ -1,3 +1,8 @@
+#'  shinydashboard UI body.
+#'
+#'  @return dashboardBody object.
+#'  @export
+
 shinyBody <- function () {
   dashboardBody(
     tabItems(

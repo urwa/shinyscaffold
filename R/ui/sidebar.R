@@ -1,3 +1,8 @@
+#'  shinydashboard UI sidebar.
+#'
+#'  @return dashboardSidebar object.
+#'  @export
+#'
 shinySidebar <- function () {
   dashboardSidebar(
     AddHelpText("ADD_HELP_TEXT_HERE"),
