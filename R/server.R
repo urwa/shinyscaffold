@@ -17,7 +17,7 @@ server <- function (input, output, session) {
   })
 
   # Introduction
-  output$Introduction.intro <- renderUI({ createIntroduction('Salutation!','Introduction Paragraph 1','Thankyou.') })
+  output$Introduction.intro <- renderUI({ createIntroduction('Welcome!', 'Thankyou for installing shinyscaffold', 'Inorder to access complete/partial menu items in sidebar type "full" or "partial" in Access Code.', 'Inorder to see custom report for sample data set User Code ranges from 1 - 100. Type one of these values to see updated graphs/plots.','Thankyou.') })
 
   # Simple Histogram
   output$simpleHist.intro <- renderUI({ HTML("Introduction - Simple Histogram") })
