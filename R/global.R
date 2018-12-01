@@ -19,7 +19,6 @@ library(reshape2)
 library(Cairo)
 library(RColorBrewer)
 
-
 # load data and functions
 load('./data/toydata.rda')
 load('./data/toynetwork.rda')

@@ -364,28 +364,43 @@ coord_radar <- function(theta='x', start=0, direction=1){
 #'
 #' @param userToken A user-specific password to show user position on the plot.
 #' @param data An input data frame.
+#' @param legendColor The color of plot. (optional)
+#' @param ylimMin Lower limit of y-axis. (optional)
+#' @param ylimMax Upper limit of y-axis. (optional)
+#' @param legendLabel A legend value for radar. (optional)
+#' @param varlabels A character vector for axis tick labels.
 #'
 #' @return A ggplot radar plot.
 
-createRadar <- function (userToken, data){
+createRadar <- function (userToken, data, legendColor = COLOR_DEFAULT_USER, ylimMin = 0, ylimMax = NULL,
+                         legendLabel = "YOU", varlabels){
 
-  # determine y axis min and max from data.
-  ylimMin <- min(data, na.rm = TRUE)
-  ylimMax <- max(data, na.rm = TRUE)
+  # set max limit of y-axis from data if not defined.
+  if(is.null(ylimMax)){
+    ylimMax <- max(data, na.rm = TRUE)
+  }
+
+  pointLegend = legendColor
+  names(pointLegend) = legendLabel
 
   # if user exists
   if(userToken %in% userPassword){
 
     # filter user-specific data
     data <- data[userToken == userPassword, ]
+
+    # set column names
+    colnames(data) <- varlabels
+
+    # format data into long format
     data <- melt(data)
 
     # make the plot
     ggplot(data, aes(x = variable, y = value, group = 1)) +
       ylim(ylimMin, ylimMax) +
-      geom_point(aes(colour = "YOU"), size = 3) +
-      geom_polygon(colour = "red", size = 1, fill = NA) +
-      scale_colour_manual("", values = c("YOU" = "red"))  +
+      geom_point(aes(colour = legendLabel), size = 3) +
+      geom_polygon(colour = COLOR_DEFAULT_USER, size = 1, fill = NA) +
+      scale_colour_manual("", values = pointLegend)  +
       coord_radar() +
       theme_bw() +
       theme(axis.line = element_blank(),

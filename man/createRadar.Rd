@@ -4,12 +4,23 @@
 \alias{createRadar}
 \title{Create a Radar Plot.}
 \usage{
-createRadar(userToken, data)
+createRadar(userToken, data, legendColor = COLOR_DEFAULT_USER,
+  ylimMin = 0, ylimMax = NULL, legendLabel = "YOU", varlabels)
 }
 \arguments{
 \item{userToken}{A user-specific password to show user position on the plot.}
 
 \item{data}{An input data frame.}
+
+\item{legendColor}{The color of plot. (optional)}
+
+\item{ylimMin}{Lower limit of y-axis. (optional)}
+
+\item{ylimMax}{Upper limit of y-axis. (optional)}
+
+\item{legendLabel}{A legend value for radar. (optional)}
+
+\item{varlabels}{A character vector for axis tick labels.}
 }
 \value{
 A ggplot radar plot.

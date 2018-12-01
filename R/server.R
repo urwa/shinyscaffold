@@ -60,7 +60,7 @@ server <- function (input, output, session) {
 
   output$simpleRadar.desc  <- renderUI({ HTML("Description - Simple Radar") })
 
-  output$simpleRadar.plot  <- renderPlot({ createRadar(userToken = input$userToken, data = toydata[,c("cont1","cont2","cont3", "cont4")]) })
+  output$simpleRadar.plot  <- renderPlot({ createRadar(userToken = input$userToken, data = toydata[,c("cont1","cont2","cont3", "cont4")], varlabels = c("dim1", "dim2", "dim3", "dim4")) })
 
   # Simple Radar W/ Comparison
   output$simpleRadarComp.intro <- renderUI({ HTML("Introduction - Simple Radar with Comparison") })
@@ -72,7 +72,7 @@ server <- function (input, output, session) {
   # Fancy Radar W/ Comparison
   output$fancyRadarComp.intro <- renderUI({ HTML("Introduction - Fancy Radar with Comparison")})
 
-  #output$fancyRadarComp.desc1 <- renderUI({ input$fancyRadarCompTB})
+  # output$fancyRadarComp.desc1 <- renderUI({ input$fancyRadarCompTB})
   output$fancyRadarComp.desc1 <- renderUI({ HTML("Description - Fancy Radar with Comparison for Dimension 1") })
   output$fancyRadarComp.desc2 <- renderUI({ HTML("Description - Fancy Radar with Comparison for Dimension 2") })
   output$fancyRadarComp.desc3 <- renderUI({ HTML("Description - Fancy Radar with Comparison for Dimension 3") })
