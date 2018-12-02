@@ -15,6 +15,7 @@ COLOR_DEFAULT_PLOT <- "#007ba7"
 COLOR_DEFAULT_USER <- "red"
 # default color of boxes headers. Choose from ("primary", "success", "info", "warning", "danger")
 STATUS_COLOR <- "primary"
+
 #################################
 # DATA HANDLING
 #################################
@@ -41,14 +42,11 @@ dataNetwork <- function (inputNetwork, inputData){
   #create nodeList
   nodeData <- inputData
   nodeData$ID <- nodeData$ID - 1
-  nodeList <- data.frame(nName = as.character(V(edgeNetwork)$name), nodeData)
+  nodeList <- data.frame(nName = as.character(V(edgeNetwork)$name), nodeData, uniform = rep(1,nrow(nodeData)))
 
   outNodeoutEdge <- list("edgeList" = edgeList,"nodeList" = nodeList)
   return (outNodeoutEdge)
 }
-
-#nodeList <- dataNetwork(toynetwork, toydata)$nodeList
-#edgeList <- dataNetwork(toynetwork, toydata)$edgeList
 
 #################################
 # DATA HANDLING (END)
@@ -189,6 +187,50 @@ AddMultiTab <- function (tabId, mainTitle, introText,
                         )
                       })
                     )
+            )
+          )
+  )
+}
+
+#' Add a network tab in the body.
+#'
+#' @param tabId A unique id to identify the tab.
+#' @param mainTitle The header of the tab.
+#' @param introText The introduction of the tab.
+#' @param paramTitle The title of the input parameters box. (optional)
+#' @param paramList The input widgets of the plot.
+#' @param paramBoxWidth The width of the input parameters box. (optional)
+#' @param plotTitle The title of the plot box. (optional)
+#' @param plotList The plot of the tab.
+#' @param plotBoxWidth The width of the plot box. (optional)
+#'
+#' @return HTML code snippet to add a network tabItem to main body with 3 boxes:
+#' * An introduction box
+#' * An input parameters box
+#' * A plot box
+
+AddNetworkTab <- function(tabId,
+                          mainTitle, introText,
+                          paramTitle = "Parameters", paramList, paramBoxWidth = 12,
+                          plotTitle = "Plot", plotList, plotBoxWidth = 12){
+  tabItem(tabName = tabId,
+          fluidRow(
+            box(
+              title = mainTitle, width = 12,
+              status = STATUS_COLOR, solidHeader = TRUE,
+              htmlOutput(introText)
+            )
+          ),
+          fluidRow(
+            box(title = paramTitle, width = paramBoxWidth,
+                status = STATUS_COLOR, solidHeader = TRUE,
+                htmlOutput(paramList)
+            )
+          ),
+          fluidRow(
+            box(title = plotTitle, width = plotBoxWidth,
+                status = STATUS_COLOR, solidHeader = TRUE,
+                forceNetworkOutput(plotList, width = "100%")
             )
           )
   )
@@ -598,4 +640,45 @@ createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
       labs(color = legendtitle) +
       scale_x_discrete(limits = xlabs)
   }
+}
+
+#' Create a full network picture from network data.
+#'
+#' @param userToken A user-specific password to show user position on the plot.
+#' @param nl Node list from input network and data.
+#' @param el Edge list from input network and data.
+#' @param size Column used to define the size of nodes. (optional)
+#' @param color COlumn used to define color of nodes. (optional)
+#' @param label Column used to define label of nodes. (optional)
+#'
+#' @return  NetworkD3 dynamic graph.
+
+createNetwork <- function (userToken, nl, el, size = "uniform", color = "nNameNew", label){
+
+  nl$nNameNew <- nl[[label]]
+
+  if(userToken %in% userPassword){
+    curUserName <- nl[[label]][userPassword == userToken];
+    nl[nl[[label]] == curUserName,]$nNameNew <- "YOU"
+    nl[nl[[label]] != curUserName,]$nNameNew <- ""
+  }
+
+  networkD3::forceNetwork(Links = el, # data frame that contains info about edges
+                          Nodes = nl, # data frame that contains info about nodes
+                          Source = "SourceID", # ID of source node
+                          Target = "TargetID", # ID of target node
+                          Value = "Weight", # value from the edge list (data frame) that will be used to value/weight relationship amongst nodes
+                          NodeID = "nNameNew", # value from the node list (data frame) that contains node description we want to use (e.g., node name)
+                          Nodesize = size,  # value from the node list (data frame) that contains value we want to use for a node size
+                          Group = color,  # value from the node list (data frame) that contains value we want to use for node color
+                          #height = 5000, # Size of the plot (vertical)
+                          #width = 5000,  # Size of the plot (horizontal)
+                          #linkColour = edges_col # edge colors
+                          fontSize = 20, # Font size
+                          legend = TRUE,
+                          linkDistance = networkD3::JS("function(d) { return 180 * d.value; }"), # Function to determine distance between any two nodes, uses variables already defined in forceNetwork function (not variables from a data frame)
+                          linkWidth = networkD3::JS("function(d) { return d.value; }"),# Function to determine link/edge thickness, uses variables already defined in forceNetwork function (not variables from a data frame)
+                          opacity = 1, # opacity
+                          zoom = TRUE, # ability to zoom when click on the node
+                          opacityNoHover = 1) # opacity of labels when static
 }

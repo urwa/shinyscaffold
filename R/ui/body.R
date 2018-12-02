@@ -67,7 +67,13 @@ shinyBody <- function () {
                   headList = c("Heading 1", "Heading 2", "Heading 3", "Heading 4"),
                   descList = c("fancyLine.desc1","fancyLine.desc2","fancyLine.desc3","fancyLine.desc4"),
                   plotList = c("fancyLine.plot1","fancyLine.plot2","fancyLine.plot3","fancyLine.plot4")
-                  )
+                  ),
+      AddNetworkTab(tabId = "fullNetwork",
+                    mainTitle = "Full Network Main Title",
+                    introText = "fullNetwork.intro",
+                    paramList = c("fullNetwork.param"),
+                    plotList = c("fullNetwork.plot")
+                    )
       )
   )
 }

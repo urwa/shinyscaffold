@@ -7,8 +7,8 @@ Depends: R (>= 3.5.0)
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Imports: shiny, shinydashboard, 
-         igraph, htmltools, 
+         igraph, htmltools, networkD3,
          plyr, dplyr, ggplot2, reshape, reshape2, 
          Cairo, RColorBrewer, roxygen2

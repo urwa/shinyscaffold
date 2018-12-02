@@ -92,6 +92,7 @@ server <- function (input, output, session) {
                                                                                                     "ts_var1_V2_1","ts_var1_V2_2","ts_var1_V2_3", "ts_var1_V2_4", "ts_var1_V2_5",
                                                                                                     "ts_var2_V1_1","ts_var2_V1_2","ts_var2_V1_3", "ts_var2_V1_4", "ts_var2_V1_5",
                                                                                                     "ts_var2_V2_1","ts_var2_V2_2","ts_var2_V2_3", "ts_var2_V2_4", "ts_var2_V2_5")], xlength = 5) })
+
   # Fancy Line
   output$fancyLine.intro <- renderUI({ HTML("Introduction - Fancy Line")})
 
@@ -117,6 +118,13 @@ server <- function (input, output, session) {
                                                                                                     "ts_var2_V1_1","ts_var2_V1_2","ts_var2_V1_3", "ts_var2_V1_4", "ts_var2_V1_5",
                                                                                                     "ts_var2_V2_1","ts_var2_V2_2","ts_var2_V2_3", "ts_var2_V2_4", "ts_var2_V2_5")], xlength = 5, dim = "line4") })
 
+  # Full Network
+  output$fullNetwork.intro <- renderUI({ HTML("Introduction - Full Network") })
+
+  output$fullNetwork.param  <- renderUI({ HTML("Parameters - Full Network") })
+
+  output$fullNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, nl = nodeList, el = edgeList,
+                                                                 label = "nName", size = "uniform", color = "TeamID") })
 
 }
 

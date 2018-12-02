@@ -18,13 +18,15 @@ library(reshape)
 library(reshape2)
 library(Cairo)
 library(RColorBrewer)
+library(networkD3)
+library(roxygen2)
 
 # load data and functions
 load('./data/toydata.rda')
 load('./data/toynetwork.rda')
 
 #set options
-options(shiny.usecairo = TRUE)
+options(shiny.usecairo = TRUE, stringsAsFactors = FALSE)
 
 # set defaults
 # column of users passwords
@@ -33,4 +35,9 @@ userPassword <- toydata$ID
 # set global variables
 utils::globalVariables("userPassword")
 
+# load all functions
 source('./R/functions.R')
+
+# nodeList and edgeList, to avoid re-calcuation and improve speed when createNetwork(...) is called.
+nodeList <- dataNetwork(toynetwork, toydata)$nodeList
+edgeList <- dataNetwork(toynetwork, toydata)$edgeList

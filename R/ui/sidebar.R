@@ -34,6 +34,9 @@ shinySidebar <- function () {
                                   menuItem("LINES",
                                            menuSubItem("SIMPLE LINE", tabName = "simpleLine"),
                                            menuSubItem("FANCY LINE", tabName = "fancyLine")
+                                           ),
+                                  menuItem("NETWORKS",
+                                           menuSubItem("FULL NETWORK", tabName = "fullNetwork")
                                            )
                                   )),
       textInput(inputId = "userToken", label = "User Code", value = "Enter your token here."),
