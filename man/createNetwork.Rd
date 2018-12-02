@@ -5,7 +5,7 @@
 \title{Create a full network picture from network data.}
 \usage{
 createNetwork(userToken, nl, el, size = "uniform", color = "nNameNew",
-  label)
+  label, opacity = 1)
 }
 \arguments{
 \item{userToken}{A user-specific password to show user position on the plot.}
@@ -19,6 +19,8 @@ createNetwork(userToken, nl, el, size = "uniform", color = "nNameNew",
 \item{color}{COlumn used to define color of nodes. (optional)}
 
 \item{label}{Column used to define label of nodes. (optional)}
+
+\item{opacity}{opacity of nodes (optional)}
 }
 \value{
 NetworkD3 dynamic graph.

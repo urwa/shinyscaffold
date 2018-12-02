@@ -203,6 +203,9 @@ AddMultiTab <- function (tabId, mainTitle, introText,
 #' @param plotTitle The title of the plot box. (optional)
 #' @param plotList The plot of the tab.
 #' @param plotBoxWidth The width of the plot box. (optional)
+#' @param plotHeight The height of the plot in px. (optional)
+#' @param sizeList A named list of drop-down options for size of nodes. Values should be column names of input data.
+#' @param colorList A named list of drop-down pptions for color of nodes. Values should be column names of input data.
 #'
 #' @return HTML code snippet to add a network tabItem to main body with 3 boxes:
 #' * An introduction box
@@ -211,8 +214,9 @@ AddMultiTab <- function (tabId, mainTitle, introText,
 
 AddNetworkTab <- function(tabId,
                           mainTitle, introText,
-                          paramTitle = "Parameters", paramList, paramBoxWidth = 12,
-                          plotTitle = "Plot", plotList, plotBoxWidth = 12){
+                          paramTitle = "Parameters", paramList, paramBoxWidth = 3,
+                          plotTitle = "Plot", plotList, plotBoxWidth = 9, plotHeight = "500px",
+                          sizeList, colorList){
   tabItem(tabName = tabId,
           fluidRow(
             box(
@@ -224,13 +228,13 @@ AddNetworkTab <- function(tabId,
           fluidRow(
             box(title = paramTitle, width = paramBoxWidth,
                 status = STATUS_COLOR, solidHeader = TRUE,
-                htmlOutput(paramList)
-            )
-          ),
-          fluidRow(
+                selectInput("size", "Size By", choices = sizeList),
+                selectInput("color", "Color By", choices = colorList),
+                sliderInput("opacity", "Opacity", 0, 1, 1)
+            ),
             box(title = plotTitle, width = plotBoxWidth,
                 status = STATUS_COLOR, solidHeader = TRUE,
-                forceNetworkOutput(plotList, width = "100%")
+                forceNetworkOutput(plotList, width = "100%", height = plotHeight)
             )
           )
   )
@@ -650,10 +654,11 @@ createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
 #' @param size Column used to define the size of nodes. (optional)
 #' @param color COlumn used to define color of nodes. (optional)
 #' @param label Column used to define label of nodes. (optional)
+#' @param opacity opacity of nodes (optional)
 #'
 #' @return  NetworkD3 dynamic graph.
 
-createNetwork <- function (userToken, nl, el, size = "uniform", color = "nNameNew", label){
+createNetwork <- function (userToken, nl, el, size = "uniform", color = "nNameNew", label, opacity = 1){
 
   nl$nNameNew <- nl[[label]]
 
@@ -678,7 +683,8 @@ createNetwork <- function (userToken, nl, el, size = "uniform", color = "nNameNe
                           legend = TRUE,
                           linkDistance = networkD3::JS("function(d) { return 180 * d.value; }"), # Function to determine distance between any two nodes, uses variables already defined in forceNetwork function (not variables from a data frame)
                           linkWidth = networkD3::JS("function(d) { return d.value; }"),# Function to determine link/edge thickness, uses variables already defined in forceNetwork function (not variables from a data frame)
-                          opacity = 1, # opacity
+                          opacity = opacity, # opacity
                           zoom = TRUE, # ability to zoom when click on the node
+                          bounded = TRUE,
                           opacityNoHover = 1) # opacity of labels when static
 }

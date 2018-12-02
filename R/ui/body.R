@@ -72,7 +72,9 @@ shinyBody <- function () {
                     mainTitle = "Full Network Main Title",
                     introText = "fullNetwork.intro",
                     paramList = c("fullNetwork.param"),
-                    plotList = c("fullNetwork.plot")
+                    plotList = c("fullNetwork.plot"),
+                    sizeList = list("Uniform" = "uniform", "Team ID" = "TeamID"),
+                    colorList = list("ID" = "ID", "Team ID" = "TeamID")
                     )
       )
   )

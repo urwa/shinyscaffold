@@ -121,10 +121,9 @@ server <- function (input, output, session) {
   # Full Network
   output$fullNetwork.intro <- renderUI({ HTML("Introduction - Full Network") })
 
-  output$fullNetwork.param  <- renderUI({ HTML("Parameters - Full Network") })
+  output$fullNetwork.param <- renderUI({ HTML("Parameters - Full Network") })
 
-  output$fullNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, nl = nodeList, el = edgeList,
-                                                                 label = "nName", size = "uniform", color = "TeamID") })
+  output$fullNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, nl = nodeList, el = edgeList, label = "nName", size = input$size, color = input$color, opacity = input$opacity) })
 
 }
 
