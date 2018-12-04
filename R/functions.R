@@ -1,7 +1,6 @@
 ###################
 # functions.R
 #
-# - DATA HANDLING
 # - UI FUNCTIONS
 # -- SIDEBAR
 # -- BODY
@@ -15,44 +14,6 @@ COLOR_DEFAULT_PLOT <- "#007ba7"
 COLOR_DEFAULT_USER <- "red"
 # default color of boxes headers. Choose from ("primary", "success", "info", "warning", "danger")
 STATUS_COLOR <- "primary"
-
-#################################
-# DATA HANDLING
-#################################
-
-#' Make network data usable in the form of edge list and node list.
-#'
-#' @param inputNetwork A network as a two dimensional array with edges showns as matrix values of 1 and nodes as row/column names.
-#' @param inputData The data of all the nodes in the above network.
-#'
-#' @return Edge list and Node list of the given data.
-
-dataNetwork <- function (inputNetwork, inputData){
-
-  # create edgeList
-  edgeNetwork <- graph.adjacency(inputNetwork)
-  edgeList <- get.edgelist(edgeNetwork)
-  edgeList <- data.frame(edgeList, rep (1,nrow(edgeList)))
-  colnames(edgeList) <- c("SourceName", "TargetName", "Weight")
-  getNodeID <- function(x){which(x == V(edgeNetwork)$name) - 1}
-  edgeList <- plyr::ddply(edgeList, .variables = c("SourceName", "TargetName", "Weight"),
-                          function (x) data.frame(SourceID = getNodeID(x$SourceName),
-                                                  TargetID = getNodeID(x$TargetName)))
-
-  #create nodeList
-  nodeData <- inputData
-  nodeData$ID <- nodeData$ID - 1
-  nodeList <- data.frame(nName = as.character(V(edgeNetwork)$name), nodeData, uniform = rep(1,nrow(nodeData)))
-
-  outNodeoutEdge <- list("edgeList" = edgeList,"nodeList" = nodeList)
-  return (outNodeoutEdge)
-}
-
-#################################
-# DATA HANDLING (END)
-#################################
-
-
 
 ################################################################
 # UI FUNCTIONS
@@ -644,6 +605,39 @@ createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
       labs(color = legendtitle) +
       scale_x_discrete(limits = xlabs)
   }
+}
+
+#################################
+# NETWORK PLOTS
+#################################
+
+#' Make network data usable in the form of edge list and node list.
+#'
+#' @param inputNetwork A network as a two dimensional array with edges showns as matrix values of 1 and nodes as row/column names.
+#' @param inputData The data of all the nodes in the above network.
+#'
+#' @return Edge list and Node list of the given data.
+
+dataNetwork <- function (inputNetwork, inputData){
+
+  # create edgeList
+  edgeNetwork <- graph.adjacency(inputNetwork)
+  edgeList <- get.edgelist(edgeNetwork)
+  edgeList <- data.frame(edgeList, rep (1,nrow(edgeList)), stringsAsFactors = FALSE)
+  colnames(edgeList) <- c("SourceName", "TargetName", "Weight")
+  getNodeID <- function(x){which(x == V(edgeNetwork)$name) - 1}
+  edgeList <- plyr::ddply(edgeList, .variables = c("SourceName", "TargetName", "Weight"),
+                          function (x) data.frame(SourceID = getNodeID(x$SourceName),
+                                                  TargetID = getNodeID(x$TargetName)))
+
+  #create nodeList
+  nodeData <- inputData
+  #nodeData$ID <- nodeData$ID - 1 # can not remember what this is for. commenting until further realization.
+  nodeList <- data.frame(nName = as.character(V(edgeNetwork)$name), nodeData, uniform = rep(1,nrow(nodeData)))
+
+  outNodeoutEdge <- list("edgeList" = edgeList,"nodeList" = nodeList)
+
+  return (outNodeoutEdge)
 }
 
 #' Create a full network picture from network data.
