@@ -165,8 +165,11 @@ AddMultiTab <- function (tabId, mainTitle, introText,
 #' @param plotList The plot of the tab.
 #' @param plotBoxWidth The width of the plot box. (optional)
 #' @param plotHeight The height of the plot in px. (optional)
+#' @param sizeId A unique id to identify size input.
 #' @param sizeList A named list of drop-down options for size of nodes. Values should be column names of input data.
+#' @param colorId A unique id to identify color input.
 #' @param colorList A named list of drop-down pptions for color of nodes. Values should be column names of input data.
+#' @param opacityId A unique id to identify opacity input.
 #'
 #' @return HTML code snippet to add a network tabItem to main body with 3 boxes:
 #' * An introduction box
@@ -177,7 +180,7 @@ AddNetworkTab <- function(tabId,
                           mainTitle, introText,
                           paramTitle = "Parameters", paramList, paramBoxWidth = 3,
                           plotTitle = "Plot", plotList, plotBoxWidth = 9, plotHeight = "500px",
-                          sizeList, colorList){
+                          sizeId, sizeList, colorId, colorList, opacityId){
   tabItem(tabName = tabId,
           fluidRow(
             box(
@@ -189,9 +192,9 @@ AddNetworkTab <- function(tabId,
           fluidRow(
             box(title = paramTitle, width = paramBoxWidth,
                 status = STATUS_COLOR, solidHeader = TRUE,
-                selectInput("size", "Size By", choices = sizeList),
-                selectInput("color", "Color By", choices = colorList),
-                sliderInput("opacity", "Opacity", 0, 1, 1)
+                selectInput(sizeId, "Size By", choices = sizeList),
+                selectInput(colorId, "Color By", choices = colorList),
+                sliderInput(opacityId, "Opacity", 0, 1, 1)
             ),
             box(title = plotTitle, width = plotBoxWidth,
                 status = STATUS_COLOR, solidHeader = TRUE,
@@ -613,12 +616,26 @@ createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
 
 #' Make network data usable in the form of edge list and node list.
 #'
-#' @param inputNetwork A network as a two dimensional array with edges showns as matrix values of 1 and nodes as row/column names.
+#' @param userToken A user-specific password to show user position on the plot.
+#' @param inputNetwork A network as an adjacency with edges showns as matrix values of 1 and nodes as row/column names.
 #' @param inputData The data of all the nodes in the above network.
 #'
 #' @return Edge list and Node list of the given data.
 
-dataNetwork <- function (inputNetwork, inputData){
+dataNetwork <- function (userToken, inputNetwork, inputData){
+
+  # for ego network
+  if(!is.null(userToken)){
+
+    if(!userToken %in% userPassword){
+      return ();
+    }
+
+    #  egonets names are characters, egonets_atrributes names are integers
+    inputNetwork <- inputNetwork[[as.character(userToken)]]
+    inputData <- inputData[[as.integer(userToken)]]
+
+  }
 
   # create edgeList
   edgeNetwork <- graph.adjacency(inputNetwork)
@@ -628,38 +645,58 @@ dataNetwork <- function (inputNetwork, inputData){
   getNodeID <- function(x){which(x == V(edgeNetwork)$name) - 1}
   edgeList <- plyr::ddply(edgeList, .variables = c("SourceName", "TargetName", "Weight"),
                           function (x) data.frame(SourceID = getNodeID(x$SourceName),
-                                                  TargetID = getNodeID(x$TargetName)))
+                                                  TargetID = getNodeID(x$TargetName), stringsAsFactors = FALSE))
 
   #create nodeList
   nodeData <- inputData
   #nodeData$ID <- nodeData$ID - 1 # can not remember what this is for. commenting until further realization.
-  nodeList <- data.frame(nName = as.character(V(edgeNetwork)$name), nodeData, uniform = rep(1,nrow(nodeData)))
+  nodeList <- data.frame(nName = as.character(V(edgeNetwork)$name), nodeData, uniform = rep(1,nrow(nodeData)), stringsAsFactors = FALSE)
 
-  outNodeoutEdge <- list("edgeList" = edgeList,"nodeList" = nodeList)
+  outNodeoutEdge <- list("edgeList" = edgeList, "nodeList" = nodeList)
 
   return (outNodeoutEdge)
 }
 
+
 #' Create a full network picture from network data.
 #'
 #' @param userToken A user-specific password to show user position on the plot.
-#' @param nl Node list from input network and data.
-#' @param el Edge list from input network and data.
+#' @param inputNetwork Input network in the form of Adjacency Matrix.
+#' @param inputData A data frame of attributes of nodes of inputNetwork.
+#' @param networkType Network type to be created. Either "FULL" or "EGO".
 #' @param size Column used to define the size of nodes. (optional)
 #' @param color COlumn used to define color of nodes. (optional)
-#' @param label Column used to define label of nodes. (optional)
+#' @param label Column used to define label of nodes.
+#' @param legend Boolean variable to show/not show the legend. (optional)
 #' @param opacity opacity of nodes (optional)
 #'
 #' @return  NetworkD3 dynamic graph.
 
-createNetwork <- function (userToken, nl, el, size = "uniform", color = "nNameNew", label, opacity = 1){
+createNetwork <- function (userToken, inputNetwork, inputData, networkType, size = "uniform", color = "nNameNew", label, legend = FALSE, opacity = 1){
+
+  userTokenVal <- userToken
+
+  if(networkType == "FULL"){
+    userTokenVal <- NULL
+  }
+
+  outList <- dataNetwork(userTokenVal, inputNetwork, inputData)
+
+  if(is.null(outList)){
+    return ();
+  }
+
+  nl <- outList$nodeList
+  el <- outList$edgeList
 
   nl$nNameNew <- nl[[label]]
 
-  if(userToken %in% userPassword){
-    curUserName <- nl[[label]][userPassword == userToken];
-    nl[nl[[label]] == curUserName,]$nNameNew <- "YOU"
-    nl[nl[[label]] != curUserName,]$nNameNew <- ""
+  if(networkType == "FULL"){
+    if(userToken %in% userPassword){
+      curUserName <- nl[[label]][userPassword == userToken]
+      nl[nl[[label]] == curUserName,]$nNameNew <- "YOU"
+      nl[nl[[label]] != curUserName,]$nNameNew <- ""
+    }
   }
 
   networkD3::forceNetwork(Links = el, # data frame that contains info about edges
@@ -674,7 +711,7 @@ createNetwork <- function (userToken, nl, el, size = "uniform", color = "nNameNe
                           #width = 5000,  # Size of the plot (horizontal)
                           #linkColour = edges_col # edge colors
                           fontSize = 20, # Font size
-                          legend = TRUE,
+                          legend = legend,
                           linkDistance = networkD3::JS("function(d) { return 180 * d.value; }"), # Function to determine distance between any two nodes, uses variables already defined in forceNetwork function (not variables from a data frame)
                           linkWidth = networkD3::JS("function(d) { return d.value; }"),# Function to determine link/edge thickness, uses variables already defined in forceNetwork function (not variables from a data frame)
                           opacity = opacity, # opacity

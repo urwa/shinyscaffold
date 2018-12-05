@@ -123,7 +123,14 @@ server <- function (input, output, session) {
 
   output$fullNetwork.param <- renderUI({ HTML("Parameters - Full Network") })
 
-  output$fullNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, nl = nodeList, el = edgeList, label = "nName", size = input$size, color = input$color, opacity = input$opacity) })
+  output$fullNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, inputNetwork = toynetwork, inputData = toydata, networkType = "FULL", label = "nName", size = input$fullNetSize, color = input$fullNetColor, opacity = input$fullNetOpacity) })
+
+  # Ego Network
+  output$egoNetwork.intro <- renderUI({ HTML("Introduction - Ego Network") })
+
+  output$egoNetwork.param <- renderUI({ HTML("Parameters - Ego Network") })
+
+  output$egoNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, inputNetwork = egonets, inputData = egonets_attrs, networkType = "EGO", label = "nName", size = input$egoNetSize, color = input$egoNetColor, opacity = input$egoNetOpacity) })
 
 }
 

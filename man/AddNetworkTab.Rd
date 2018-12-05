@@ -6,7 +6,8 @@
 \usage{
 AddNetworkTab(tabId, mainTitle, introText, paramTitle = "Parameters",
   paramList, paramBoxWidth = 3, plotTitle = "Plot", plotList,
-  plotBoxWidth = 9, plotHeight = "500px", sizeList, colorList)
+  plotBoxWidth = 9, plotHeight = "500px", sizeId, sizeList, colorId,
+  colorList, opacityId)
 }
 \arguments{
 \item{tabId}{A unique id to identify the tab.}
@@ -29,9 +30,15 @@ AddNetworkTab(tabId, mainTitle, introText, paramTitle = "Parameters",
 
 \item{plotHeight}{The height of the plot in px. (optional)}
 
+\item{sizeId}{A unique id to identify size input.}
+
 \item{sizeList}{A named list of drop-down options for size of nodes. Values should be column names of input data.}
 
+\item{colorId}{A unique id to identify color input.}
+
 \item{colorList}{A named list of drop-down pptions for color of nodes. Values should be column names of input data.}
+
+\item{opacityId}{A unique id to identify opacity input.}
 }
 \value{
 HTML code snippet to add a network tabItem to main body with 3 boxes:

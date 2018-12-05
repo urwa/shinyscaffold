@@ -24,8 +24,12 @@ library(roxygen2)
 # load data and functions
 load('./data/toydata.rda')
 load('./data/toynetwork.rda')
+load('./data/egonets.rda')
+load('./data/egonets_attrs.rda')
 
-#set options
+# set options
+# usecairo - for smooth graphics
+# stringsAsFactors - to create data frames withOUT factors
 options(shiny.usecairo = TRUE, stringsAsFactors = FALSE)
 
 # set defaults
@@ -39,5 +43,5 @@ utils::globalVariables("userPassword")
 source('./R/functions.R')
 
 # nodeList and edgeList, to avoid re-calcuation and improve speed when createNetwork(...) is called.
-nodeList <- dataNetwork(toynetwork, toydata)$nodeList
-edgeList <- dataNetwork(toynetwork, toydata)$edgeList
+# nodeList <- dataNetwork(toynetwork, toydata)$nodeList
+# edgeList <- dataNetwork(toynetwork, toydata)$edgeList

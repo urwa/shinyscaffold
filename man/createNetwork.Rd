@@ -4,21 +4,26 @@
 \alias{createNetwork}
 \title{Create a full network picture from network data.}
 \usage{
-createNetwork(userToken, nl, el, size = "uniform", color = "nNameNew",
-  label, opacity = 1)
+createNetwork(userToken, inputNetwork, inputData, networkType,
+  size = "uniform", color = "nNameNew", label, legend = FALSE,
+  opacity = 1)
 }
 \arguments{
 \item{userToken}{A user-specific password to show user position on the plot.}
 
-\item{nl}{Node list from input network and data.}
+\item{inputNetwork}{Input network in the form of Adjacency Matrix.}
 
-\item{el}{Edge list from input network and data.}
+\item{inputData}{A data frame of attributes of nodes of inputNetwork.}
+
+\item{networkType}{Network type to be created. Either "FULL" or "EGO".}
 
 \item{size}{Column used to define the size of nodes. (optional)}
 
 \item{color}{COlumn used to define color of nodes. (optional)}
 
-\item{label}{Column used to define label of nodes. (optional)}
+\item{label}{Column used to define label of nodes.}
+
+\item{legend}{Boolean variable to show/not show the legend. (optional)}
 
 \item{opacity}{opacity of nodes (optional)}
 }

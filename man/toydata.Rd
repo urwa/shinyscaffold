@@ -6,8 +6,8 @@
 \title{Sample user data for feedback dashboard.}
 \format{A data frame with 100 rows and 63 variables:
 \describe{
-  \item{ID}{unique ID for each user.}
-  \item{TeamID}{team the user belongs to.}
+  \item{ID}{unique ID for each user}
+  \item{TeamID}{team the user belongs to}
   \item{cat1}{sample attribute}
   \item{cat1_blau}{sample attribute}
   \item{cat2}{sample attribute}
@@ -77,6 +77,6 @@ TO-DO
 toydata
 }
 \description{
-A dataset containing dummy attributes for 100 users, used personalized insights/feedback for each user.
+A dataset containing dummy attributes for 100 users, used for personalized insights/feedback for each user.
 }
 \keyword{datasets}
