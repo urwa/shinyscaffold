@@ -610,6 +610,58 @@ createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
   }
 }
 
+#' Create box plot of self versus others.
+#'
+#' @param userToken A user-specific password to show user position on the plot.
+#' @param dataSelf Data representing self value.
+#' @param dataOthers Data representing others values.
+#' @param dataOthersMean Data representing mean value among others.
+#' @param xlims Limits of x axis. (optional)
+
+createBox <- function(userToken, dataSelf, dataOthers, dataOthersMean, xlims = NULL){
+
+  if(!userToken %in% userPassword){
+    return()
+  }
+
+  if(is.null(xlims)){
+    xlims <- c(min(dataSelf, min(dataOthers)), max(dataSelf, max(dataOthers)))
+  }
+
+  dataSelf <- as.data.frame(dataSelf)[userPassword == userToken,]
+  dataOthers <- as.data.frame(dataOthers)[userPassword == userToken,]
+  dataOthersMean <- as.data.frame(dataOthersMean)[userPassword == userToken,]
+
+  dataSelf <- data.frame(ylab = "Self", y = 2, value = dataSelf)
+  dataOthers <- data.frame(ylab = "Others", y = 1, value = melt(dataOthers)$value)
+  dataOthersMean <- data.frame(ylab = "OthersMean", y = 1, value = dataOthersMean)
+
+  data <- rbind(dataSelf, dataOthers, dataOthersMean)
+
+  ggplot(data, aes(x = value, y = y)) +
+    geom_point(aes(color = ylab, fill = ylab, shape = ylab), size = 10) +
+    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 1.7, ymax = 2.3, alpha = 0.05) +
+    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 0.7, ymax = 1.3, alpha = 0.05) +
+    lims(x = xlims) +
+    scale_fill_manual(values=c(COLOR_DEFAULT_PLOT, COLOR_DEFAULT_PLOT, COLOR_DEFAULT_USER)) +
+    scale_color_manual(values=c(COLOR_DEFAULT_PLOT, COLOR_DEFAULT_PLOT, COLOR_DEFAULT_USER)) +
+    scale_y_discrete(labels=c("1" = "Others", "2" = "Self"), limits=c("1","2","1")) +
+    labs(color = "ylab", shape = "ylab") +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.border = element_blank(),
+          panel.background = element_blank(),
+          axis.title = element_blank(),
+          legend.position="bottom",
+          axis.text =element_text(size=10),
+          text =element_text(size=12),
+          axis.ticks = element_blank(),
+          legend.text=element_text(size=12),
+          legend.title = element_blank(),
+          legend.key=element_blank(),
+          legend.background=element_blank())
+}
+
 #################################
 # NETWORK PLOTS
 #################################

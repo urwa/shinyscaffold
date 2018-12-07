@@ -41,7 +41,3 @@ utils::globalVariables("userPassword")
 
 # load all functions
 source('./R/functions.R')
-
-# nodeList and edgeList, to avoid re-calcuation and improve speed when createNetwork(...) is called.
-# nodeList <- dataNetwork(toynetwork, toydata)$nodeList
-# edgeList <- dataNetwork(toynetwork, toydata)$edgeList

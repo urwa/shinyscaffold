@@ -68,6 +68,19 @@ shinyBody <- function () {
                   descList = c("fancyLine.desc1","fancyLine.desc2","fancyLine.desc3","fancyLine.desc4"),
                   plotList = c("fancyLine.plot1","fancyLine.plot2","fancyLine.plot3","fancyLine.plot4")
                   ),
+      AddSimpleTab(tabId = "simpleBox",
+                   mainTitle = "Simple Box Main Title",
+                   introText = "simpleBox.intro",
+                   descList = c("simpleBox.desc"),
+                   plotList = c("simpleBox.plot")
+                   ),
+      AddMultiTab(tabId = "multiBox",
+                  mainTitle = "Multi Box Main Title",
+                  introText = "multiBox.intro",
+                  headList = c("Heading 1", "Heading 2", "Heading 3"),
+                  descList = c("multiBox.desc1", "multiBox.desc2", "multiBox.desc3"),
+                  plotList = c("multiBox.plot1", "multiBox.plot2", "multiBox.plot3")
+                  ),
       AddNetworkTab(tabId = "fullNetwork",
                     mainTitle = "Full Network Main Title",
                     introText = "fullNetwork.intro",

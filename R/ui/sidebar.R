@@ -35,6 +35,10 @@ shinySidebar <- function () {
                                            menuSubItem("SIMPLE LINE", tabName = "simpleLine"),
                                            menuSubItem("FANCY LINE", tabName = "fancyLine")
                                            ),
+                                  menuItem("BOXES",
+                                           menuSubItem("SIMPLE BOX", tabName = "simpleBox"),
+                                           menuSubItem("MULTI BOX", tabName = "multiBox")
+                                           ),
                                   menuItem("NETWORKS",
                                            menuSubItem("FULL NETWORK", tabName = "fullNetwork"),
                                            menuSubItem("EGO NETWORK", tabName = "egoNetwork")
