@@ -634,17 +634,18 @@ createBox <- function(userToken, dataSelf, dataOthers, dataOthersMean, xlims = N
 
   dataSelf <- data.frame(ylab = "Self", y = 2, value = dataSelf)
   dataOthers <- data.frame(ylab = "Others", y = 1, value = melt(dataOthers)$value)
-  dataOthersMean <- data.frame(ylab = "OthersMean", y = 1, value = dataOthersMean)
+  dataOthersMean <- data.frame(ylab = "Others Mean", y = 1, value = dataOthersMean)
 
   data <- rbind(dataSelf, dataOthers, dataOthersMean)
 
   ggplot(data, aes(x = value, y = y)) +
-    geom_point(aes(color = ylab, fill = ylab, shape = ylab), size = 10) +
+    geom_point(aes(color = ylab, fill = ylab, shape = ylab), size = 10, stroke = 0.5) +
     geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 1.7, ymax = 2.3, alpha = 0.05) +
     geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 0.7, ymax = 1.3, alpha = 0.05) +
     lims(x = xlims) +
+    scale_color_manual(values=rep("black",3)) +
     scale_fill_manual(values=c(COLOR_DEFAULT_PLOT, COLOR_DEFAULT_PLOT, COLOR_DEFAULT_USER)) +
-    scale_color_manual(values=c(COLOR_DEFAULT_PLOT, COLOR_DEFAULT_PLOT, COLOR_DEFAULT_USER)) +
+    scale_shape_manual(name="ylab", values = c(21:23)) +
     scale_y_discrete(labels=c("1" = "Others", "2" = "Self"), limits=c("1","2","1")) +
     labs(color = "ylab", shape = "ylab") +
     theme(panel.grid.major = element_blank(),
@@ -652,14 +653,14 @@ createBox <- function(userToken, dataSelf, dataOthers, dataOthersMean, xlims = N
           panel.border = element_blank(),
           panel.background = element_blank(),
           axis.title = element_blank(),
-          legend.position="bottom",
-          axis.text =element_text(size=10),
-          text =element_text(size=12),
+          legend.position ="bottom",
+          axis.text = element_text(size=10),
+          text = element_text(size=12),
           axis.ticks = element_blank(),
           legend.text=element_text(size=12),
           legend.title = element_blank(),
           legend.key=element_blank(),
-          legend.background=element_blank())
+          legend.background = element_blank())
 }
 
 #################################
