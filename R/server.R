@@ -143,11 +143,11 @@ server <- function (input, output, session) {
 
   output$fullNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, inputNetwork = toynetwork, inputData = toydata, networkType = "FULL", label = "nName", size = input$fullNetSize, color = input$fullNetColor, opacity = input$fullNetOpacity) })
 
-  # Ego Network
-  output$egoNetwork.intro <- renderUI({ HTML("Introduction - Ego Network") })
+  # Small Network
+  output$smallNetwork.intro <- renderUI({ HTML("Introduction - Small Network") })
 
-  output$egoNetwork.param <- renderUI({ HTML("Parameters - Ego Network") })
+  output$smallNetwork.param <- renderUI({ HTML("Parameters - Small Network") })
 
-  output$egoNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, inputNetwork = egonets, inputData = egonets_attrs, networkType = "EGO", label = "nName", size = input$egoNetSize, color = input$egoNetColor, opacity = input$egoNetOpacity) })
+  output$smallNetwork.plot  <- renderForceNetwork({ createNetwork(userToken = input$userToken, inputNetwork = egonets, inputData = egonets_attrs, networkType = "SMALL", label = "nName", size = input$smallNetSize, color = input$smallNetColor, opacity = input$smallNetOpacity) })
 
 }

@@ -92,16 +92,16 @@ shinyBody <- function () {
                     colorList = list("ID" = "ID", "Team ID" = "TeamID"),
                     opacityId = "fullNetOpacity"
                     ),
-      AddNetworkTab(tabId = "egoNetwork",
-                       mainTitle = "Ego Network Main Title",
-                       introText = "egoNetwork.intro",
-                       paramList = c("egoNetwork.param"),
-                       plotList = c("egoNetwork.plot"),
-                       sizeId = "egoNetSize",
+      AddNetworkTab(tabId = "smallNetwork",
+                       mainTitle = "Small Network Main Title",
+                       introText = "smallNetwork.intro",
+                       paramList = c("smallNetwork.param"),
+                       plotList = c("smallNetwork.plot"),
+                       sizeId = "smallNetSize",
                        sizeList = list("Uniform" = "uniform", "ID" = "ID"),
-                       colorId = "egoNetColor",
+                       colorId = "smallNetColor",
                        colorList = list("ID" = "ID", "Uniform" = "uniform"),
-                       opacityId = "egoNetOpacity"
+                       opacityId = "smallNetOpacity"
                        )
       )
   )

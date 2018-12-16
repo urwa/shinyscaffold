@@ -677,15 +677,15 @@ createBox <- function(userToken, dataSelf, dataOthers, dataOthersMean, xlims = N
 
 dataNetwork <- function (userToken, inputNetwork, inputData){
 
-  # for ego network
+  # for small network
   if(!is.null(userToken)){
 
     if(!userToken %in% userPassword){
       return ();
     }
 
-    #  egonets names are characters, egonets_atrributes names are integers
-    inputNetwork <- inputNetwork[[as.character(userToken)]]
+    #  small network names are characters, small network atrributes names are integers
+    inputNetwork <- inputNetwork[[as.integer(userToken)]]
     inputData <- inputData[[as.integer(userToken)]]
 
   }
@@ -716,7 +716,7 @@ dataNetwork <- function (userToken, inputNetwork, inputData){
 #' @param userToken A user-specific password to show user position on the plot.
 #' @param inputNetwork Input network in the form of Adjacency Matrix.
 #' @param inputData A data frame of attributes of nodes of inputNetwork.
-#' @param networkType Network type to be created. Either "FULL" or "EGO".
+#' @param networkType Network type to be created. Either "FULL" or "SMALL".
 #' @param size Column used to define the size of nodes. (optional)
 #' @param color COlumn used to define color of nodes. (optional)
 #' @param label Column used to define label of nodes.

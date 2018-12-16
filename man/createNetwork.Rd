@@ -15,7 +15,7 @@ createNetwork(userToken, inputNetwork, inputData, networkType,
 
 \item{inputData}{A data frame of attributes of nodes of inputNetwork.}
 
-\item{networkType}{Network type to be created. Either "FULL" or "EGO".}
+\item{networkType}{Network type to be created. Either "FULL" or "SMALL".}
 
 \item{size}{Column used to define the size of nodes. (optional)}
 
