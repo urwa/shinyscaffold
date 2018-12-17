@@ -546,24 +546,22 @@ formatLineData <- function (userToken, data, xlength, dimnames = NULL){
 #'
 #' @param userToken A user-specific password to show user position on the plot.
 #' @param data An input data frame.
-#' @param xlength Th length of x-axis/ The number of variables.
+#' @param xlength The length of x-axis/ The number of variables.
 #' @param dim Manually selected dimension (tab) highlighted when the relevant tab is selected. (optional)
 #' @param xlabs A character vector of x-axis tick labels with length equal to xlength. (optional)
 #' @param dimnames A chacter vector representing line labels in the legend. (optional)
 #' @param legendtitle Title of the legend. (optional)
 #' @param ylimMin Lower limit of y-axis. (optional)
 #' @param ylimMax Upper limit of y-axis. (optional)
-#' @param thinlines If TRUE, set variable sizes of lines. (optional)
 #' @param xrotate If TRUE, rotate x-axis tick labels by 90 degree. (optional)
 #'
 #' @return A plot with multiple lines.
 
-createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
-                       dimnames = NULL, legendtitle = "", ylimMin = 0, ylimMax = NULL,
-                       thinlines = FALSE, xrotate = FALSE){
+createLine <- function(userToken, data, xlength, dim = "", xlabs = NULL, dimnames = NULL,
+                       legendtitle = "", ylimMin = 0, ylimMax = NULL, xrotate = FALSE){
 
   if(is.null(ylimMax)){
-    ylimMax <- 1.1 * max(data)
+    ylimMax <- 1.1 * max(data, na.rm = TRUE)
   }
 
   if(xrotate){
@@ -583,12 +581,11 @@ createLine <- function(userToken, data, xlength, dim = " ", xlabs = NULL,
     }
 
     data <- melt(data, id.vars = "xlabel")
-    data$line_size <- ifelse(data$variable == dim, 2, 0.8)
+    data$line_size <- ifelse(data$variable == dim, 0.7, 0.5)
 
     ggplot(data, aes(x = xlabel, y = value, group = variable, color = variable)) +
       ylim(ylimMin, ylimMax) +
-      geom_line(aes(size = 1)) +
-      {if(!thinlines)geom_line(aes(size = line_size))} +
+      geom_line(aes(size = line_size)) +
       geom_point(aes(size = line_size)) +
       theme_bw() +
       theme(axis.text = element_text(size=12),

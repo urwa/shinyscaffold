@@ -4,16 +4,16 @@
 \alias{createLine}
 \title{Create line plot with user-specific line highlighted.}
 \usage{
-createLine(userToken, data, xlength, dim = " ", xlabs = NULL,
+createLine(userToken, data, xlength, dim = "", xlabs = NULL,
   dimnames = NULL, legendtitle = "", ylimMin = 0, ylimMax = NULL,
-  thinlines = FALSE, xrotate = FALSE)
+  xrotate = FALSE)
 }
 \arguments{
 \item{userToken}{A user-specific password to show user position on the plot.}
 
 \item{data}{An input data frame.}
 
-\item{xlength}{Th length of x-axis/ The number of variables.}
+\item{xlength}{The length of x-axis/ The number of variables.}
 
 \item{dim}{Manually selected dimension (tab) highlighted when the relevant tab is selected. (optional)}
 
@@ -26,8 +26,6 @@ createLine(userToken, data, xlength, dim = " ", xlabs = NULL,
 \item{ylimMin}{Lower limit of y-axis. (optional)}
 
 \item{ylimMax}{Upper limit of y-axis. (optional)}
-
-\item{thinlines}{If TRUE, set variable sizes of lines. (optional)}
 
 \item{xrotate}{If TRUE, rotate x-axis tick labels by 90 degree. (optional)}
 }

@@ -26,6 +26,8 @@ load('./data/toydata.rda')
 load('./data/toynetwork.rda')
 load('./data/egonets.rda')
 load('./data/egonets_attrs.rda')
+load('./data/smallnets.rda')
+load('./data/smallnets_attrs.rda')
 
 # set options
 # usecairo - for smooth graphics
