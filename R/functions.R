@@ -607,6 +607,38 @@ createLine <- function(userToken, data, xlength, dim = "", xlabs = NULL, dimname
   }
 }
 
+#' Create Scatter Plot.
+#'
+#' @param userToken A user-specific password to show user position on the plot.
+#' @param data An input data frame.
+#'
+#' @return A scatter plot with highlighted user point.
+#'
+createScatter <- function(userToken, data){
+
+  names(data) <- c("x", "y")
+
+  data$color <- ifelse(userToken == userPassword, "YOU", "OTHERS")
+  colorScale <- c("YOU" = COLOR_DEFAULT_USER, "OTHERS" = COLOR_DEFAULT_PLOT)
+
+  ggplot(data, aes(x, y)) +
+    geom_point(size = 3,  aes(colour = color)) +
+    scale_color_manual("", values = colorScale) +
+    theme_bw() +
+    theme(axis.text = element_text(size=12),
+          axis.ticks = element_blank(),
+          axis.title = element_blank(),
+          panel.background = element_blank(),
+          panel.border = element_blank(),
+          plot.background = element_blank(),
+          axis.line = element_line(colour = "black"),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          legend.text = element_text(size = 12),
+          legend.position ="bottom")
+
+}
+
 #' Create box plot of self versus others.
 #'
 #' @param userToken A user-specific password to show user position on the plot.

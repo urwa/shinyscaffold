@@ -94,7 +94,7 @@ server <- function (input, output, session) {
                                                                                                     "ts_var2_V2_1","ts_var2_V2_2","ts_var2_V2_3", "ts_var2_V2_4", "ts_var2_V2_5")], xlength = 5) })
 
   # Fancy Line
-  output$fancyLine.intro <- renderUI({ HTML("Introduction - Fancy Line")})
+  output$fancyLine.intro <- renderUI({ HTML("Introduction - Fancy Line") })
 
   output$fancyLine.desc1  <- renderUI({ HTML("Description - Fancy Line for Dimension 1") })
   output$fancyLine.desc2  <- renderUI({ HTML("Description - Fancy Line for Dimension 2") })
@@ -117,6 +117,13 @@ server <- function (input, output, session) {
                                                                                                     "ts_var1_V2_1","ts_var1_V2_2","ts_var1_V2_3", "ts_var1_V2_4", "ts_var1_V2_5",
                                                                                                     "ts_var2_V1_1","ts_var2_V1_2","ts_var2_V1_3", "ts_var2_V1_4", "ts_var2_V1_5",
                                                                                                     "ts_var2_V2_1","ts_var2_V2_2","ts_var2_V2_3", "ts_var2_V2_4", "ts_var2_V2_5")], xlength = 5, dim = "line4") })
+
+  # Simple Scatter
+  output$simpleScatter.intro <- renderUI({ HTML("Introduction - Simple Scatter") })
+
+  output$simpleScatter.desc <- renderUI({ HTML("Description - Simple Scatter") })
+
+  output$simpleScatter.plot <- renderPlot({ createScatter(userToken = input$userToken, data = toydata[, c("cont1", "cont2")]) })
 
   # Simple Box
   output$simpleBox.intro <- renderUI({ HTML("Introduction - Simple Box") })
