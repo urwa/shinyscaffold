@@ -125,6 +125,13 @@ server <- function (input, output, session) {
 
   output$simpleScatter.plot <- renderPlot({ createScatter(userToken = input$userToken, data = toydata[, c("cont1", "cont2")]) })
 
+  # Simple Pie
+  output$simplePie.intro <- renderUI({ HTML("Introduction - Simple Pie") })
+
+  output$simplePie.desc <- renderUI({ HTML("Description - Simple Pie") })
+
+  output$simplePie.plot <- renderPlot({ createPie(userToken = input$userToken, data = toydata[,c("cat1","cat2","cat3","cat4")], colors <- c("#007ba7", "#2d6384", "#5a4b61", "#86333e")) })
+
   # Simple Box
   output$simpleBox.intro <- renderUI({ HTML("Introduction - Simple Box") })
 

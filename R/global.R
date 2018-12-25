@@ -19,6 +19,7 @@ library(reshape2)
 library(Cairo)
 library(RColorBrewer)
 library(networkD3)
+library(scales)
 library(roxygen2)
 
 # load data and functions

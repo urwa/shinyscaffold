@@ -11,4 +11,4 @@ RoxygenNote: 6.1.1
 Imports: shiny, shinydashboard, 
          igraph, htmltools, networkD3,
          plyr, dplyr, ggplot2, reshape, reshape2, 
-         Cairo, RColorBrewer, roxygen2
+         Cairo, RColorBrewer, roxygen2, scales

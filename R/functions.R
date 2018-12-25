@@ -639,6 +639,37 @@ createScatter <- function(userToken, data){
 
 }
 
+#' Create Pie Chart.
+#' @param userToken A user-specific password to show user position on the plot.
+#' @param data An input data frame.
+#' @param colors The vector representing colors of pie-slices.
+#'
+#' @return A pie chart with percentage labels.
+#'
+createPie <- function (userToken, data, colors){
+
+  if(userToken %in% userPassword){
+    data <- data[userToken == userPassword,]
+    data <- melt(data)
+
+    data <- data %>%
+      mutate(per=`value`/sum(`value`)) %>%
+      arrange(desc(variable))
+
+    data$label <- percent(data$per)
+
+    ggplot(data = data)+
+      geom_bar(aes(x = "", y = per, fill = variable), stat = "identity", width = 1, colour = "white") +
+      coord_polar("y", start = 0)+
+      theme_void()+
+      geom_text(aes(x = 1, y = cumsum(per) - per/2, label = label), colour = "white") +
+      scale_fill_manual(values = colors) +
+      theme(legend.title = element_blank(),
+            legend.position = "bottom",
+            legend.text = element_text(size = 10))
+  }
+}
+
 #' Create box plot of self versus others.
 #'
 #' @param userToken A user-specific password to show user position on the plot.
