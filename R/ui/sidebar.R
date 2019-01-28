@@ -36,7 +36,8 @@ shinySidebar <- function () {
                                            menuSubItem("FANCY LINE", tabName = "fancyLine")
                                            ),
                                   menuItem("SCATTER",
-                                           menuSubItem("SIMPLE SCATTER", tabName = "simpleScatter")
+                                           menuSubItem("SIMPLE SCATTER", tabName = "simpleScatter"),
+                                           menuSubItem("FANCY SCATTER", tabName = "fancyScatter")
                                            ),
                                   menuItem("PIE",
                                            menuSubItem("SIMPLE PIE", tabName = "simplePie")

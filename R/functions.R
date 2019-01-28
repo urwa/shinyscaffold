@@ -63,6 +63,7 @@ AddIntroductionTab <- function (tabId, mainTitle, introText){
 #' Add a simple tab in the body.
 #'
 #' @param tabId A unique id to identify the tab.
+#' @param inputBox The check if input box should be added.(optional)
 #' @param mainTitle The header of the tab.
 #' @param introText The introduction of the tab.
 #' @param descTitle The title of the description box. (optional)
@@ -71,35 +72,66 @@ AddIntroductionTab <- function (tabId, mainTitle, introText){
 #' @param plotTitle The title of the plot box. (optional)
 #' @param plotList The plot of the tab.
 #' @param plotBoxWidth The width of the plot box. (optional)
+#' @param inputTitle The title of input box. (optional)
+#' @param inputList The inputs of the plot. (optional)
+#' @param inputBoxWidth The width of the input box. (optional)
 #'
 #' @return HTML code snippet to add a simple tabItem to main body with 3 boxes:
 #' * An introduction box
 #' * A description box
 #' * A plot box
 
-AddSimpleTab <- function (tabId,
+AddSimpleTab <- function (tabId, inputBox = FALSE,
                           mainTitle, introText,
                           descTitle="Description", descList, descBoxWidth = 7,
-                          plotTitle = "Plot", plotList, plotBoxWidth = 5){
-  tabItem(tabName = tabId,
-          fluidRow(
-            box(
-              title = mainTitle, width = 12,
-              status = STATUS_COLOR, solidHeader = TRUE,
-              htmlOutput(introText)
-            )
-          ),
-          fluidRow(
-            box(title = descTitle, width = descBoxWidth,
+                          plotTitle = "Plot", plotList, plotBoxWidth = 5,
+                          inputTitle = "Inputs", inputList = NULL, inputBoxWidth = 3){
+  if(!inputBox){
+    tabItem(tabName = tabId,
+            fluidRow(
+              box(
+                title = mainTitle, width = 12,
                 status = STATUS_COLOR, solidHeader = TRUE,
-                htmlOutput(descList)
+                htmlOutput(introText)
+              )
             ),
-            box(title = plotTitle, width = plotBoxWidth,
-                status = STATUS_COLOR, solidHeader = TRUE,
-                plotOutput(plotList)
+            fluidRow(
+              box(title = descTitle, width = descBoxWidth,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  htmlOutput(descList)
+              ),
+              box(title = plotTitle, width = plotBoxWidth,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  plotOutput(plotList)
+              )
             )
-          )
-  )
+    )
+  } else{
+    descBoxWidth = 4;
+    tabItem(tabName = tabId,
+            fluidRow(
+              box(
+                title = mainTitle, width = 12,
+                status = STATUS_COLOR, solidHeader = TRUE,
+                htmlOutput(introText)
+              )
+            ),
+            fluidRow(
+              box(title = descTitle, width = descBoxWidth,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  htmlOutput(descList)
+              ),
+              box(title = inputTitle, width = inputBoxWidth,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  htmlOutput(inputList)
+              ),
+              box(title = plotTitle, width = plotBoxWidth,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  plotOutput(plotList)
+              )
+            )
+    )
+  }
 }
 
 #' Add multiple tabs in the body.

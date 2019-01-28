@@ -4,12 +4,15 @@
 \alias{AddSimpleTab}
 \title{Add a simple tab in the body.}
 \usage{
-AddSimpleTab(tabId, mainTitle, introText, descTitle = "Description",
-  descList, descBoxWidth = 7, plotTitle = "Plot", plotList,
-  plotBoxWidth = 5)
+AddSimpleTab(tabId, inputBox = FALSE, mainTitle, introText,
+  descTitle = "Description", descList, descBoxWidth = 7,
+  plotTitle = "Plot", plotList, plotBoxWidth = 5,
+  inputTitle = "Inputs", inputList = NULL, inputBoxWidth = 3)
 }
 \arguments{
 \item{tabId}{A unique id to identify the tab.}
+
+\item{inputBox}{The check if input box should be added.(optional)}
 
 \item{mainTitle}{The header of the tab.}
 
@@ -26,6 +29,12 @@ AddSimpleTab(tabId, mainTitle, introText, descTitle = "Description",
 \item{plotList}{The plot of the tab.}
 
 \item{plotBoxWidth}{The width of the plot box. (optional)}
+
+\item{inputTitle}{The title of input box. (optional)}
+
+\item{inputList}{The inputs of the plot. (optional)}
+
+\item{inputBoxWidth}{The width of the input box. (optional)}
 }
 \value{
 HTML code snippet to add a simple tabItem to main body with 3 boxes:

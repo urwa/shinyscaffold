@@ -74,6 +74,16 @@ shinyBody <- function () {
                    descList = c("simpleScatter.desc"),
                    plotList = c("simpleScatter.plot")
                    ),
+      AddSimpleTab(tabId = "fancyScatter",
+                   inputBox = TRUE,
+                   descBoxWidth = 4,
+                   inputBoxWidth = 3,
+                   mainTitle = "Fancy Scatter Main Title",
+                   introText = "fancyScatter.intro",
+                   descList = c("fancyScatter.desc"),
+                   plotList = c("fancyScatter.plot"),
+                   inputList = c("fancyScatter.input")
+                   ),
       AddSimpleTab(tabId = "simplePie",
                    mainTitle = "Simple Pie Main Title",
                    introText = "simplePie.intro",
