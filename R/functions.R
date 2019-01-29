@@ -613,12 +613,13 @@ createLine <- function(userToken, data, xlength, dim = "", xlabs = NULL, dimname
     }
 
     data <- melt(data, id.vars = "xlabel")
-    data$line_size <- ifelse(data$variable == dim, 0.7, 0.5)
+    data$line_size <- ifelse(data$variable == dim, 3, 1)
 
     ggplot(data, aes(x = xlabel, y = value, group = variable, color = variable)) +
       ylim(ylimMin, ylimMax) +
       geom_line(aes(size = line_size)) +
       geom_point(aes(size = line_size)) +
+      scale_size(range = c(1,3)) +
       theme_bw() +
       theme(axis.text = element_text(size=12),
             axis.ticks = element_blank(),
