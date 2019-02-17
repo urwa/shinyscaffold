@@ -654,6 +654,8 @@ createScatter <- function(userToken, data){
   data$color <- ifelse(userToken == userPassword, "YOU", "OTHERS")
   colorScale <- c("YOU" = COLOR_DEFAULT_USER, "OTHERS" = COLOR_DEFAULT_PLOT)
 
+  data <- data %>% arrange(color)
+
   ggplot(data, aes(x, y)) +
     geom_point(aes(colour = color), size = 3, position=position_jitter(h=0.1, w=0.1), alpha = 0.7) +
     scale_color_manual("", values = colorScale) +
