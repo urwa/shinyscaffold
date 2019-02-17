@@ -655,7 +655,7 @@ createScatter <- function(userToken, data){
   colorScale <- c("YOU" = COLOR_DEFAULT_USER, "OTHERS" = COLOR_DEFAULT_PLOT)
 
   ggplot(data, aes(x, y)) +
-    geom_point(size = 3,  aes(colour = color)) +
+    geom_point(aes(colour = color), size = 3, position=position_jitter(h=0.1, w=0.1), alpha = 0.7) +
     scale_color_manual("", values = colorScale) +
     theme_bw() +
     theme(axis.text = element_text(size=12),

@@ -132,7 +132,7 @@ server <- function (input, output, session) {
 
   output$fancyScatter.plot <- renderPlot({ createScatter(userToken = input$userToken, data = toydata[, c(input$scatter_X, input$scatter_Y)]) })
 
-  output$fancyScatter.input <- renderUI({ lapply(c("X","Y"), function(x){ selectInput(inputId = paste0("scatter_", x), label = paste0("Parameter ", x), choices = names(toydata), selected = names(toydata)[1] )}) })
+  output$fancyScatter.input <- renderUI({ lapply(c("X","Y"), function(x){ selectInput(inputId = paste0("scatter_", x), label = paste0("Parameter ", x), choices = c("cont1", "cont2", "cont3", "cont4"), selected = "cont1" )}) })
 
   # Simple Pie
   output$simplePie.intro <- renderUI({ HTML("Introduction - Simple Pie") })
