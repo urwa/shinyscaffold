@@ -120,9 +120,9 @@ shinyBody <- function () {
                        paramList = c("smallNetwork.param"),
                        plotList = c("smallNetwork.plot"),
                        sizeId = "smallNetSize",
-                       sizeList = list("Uniform" = "uniform", "ID" = "ID"),
+                       sizeList = list("con1" = "cont1", "cont2" = "cont2"),
                        colorId = "smallNetColor",
-                       colorList = list("ID" = "ID", "Uniform" = "uniform"),
+                       colorList = list("cat1" = "cat1", "cat2" = "cat2"),
                        opacityId = "smallNetOpacity"
                        )
       )
