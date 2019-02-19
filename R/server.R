@@ -5,6 +5,7 @@
 #' @param session object to access session information.
 #'
 #' @import shiny
+#' @export
 
 server <- function (input, output, session) {
 
