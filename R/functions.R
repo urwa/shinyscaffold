@@ -709,39 +709,46 @@ createPie <- function (userToken, data, colors){
 #'
 #' @param userToken A user-specific password to show user position on the plot.
 #' @param dataSelf Data representing self value.
-#' @param dataOthers Data representing others values.
-#' @param dataOthersMean Data representing mean value among others.
+#' @param dataComp1 Data for comparison 1.
+#' @param dataComp1Mean Mean of data for comparison 1.
+#' @param dataComp2 Data for comparison 2.
+#' @param dataComp2Mean Mean of data for comparison 2.
 #' @param xlims Limits of x axis. (optional)
 
-createBox <- function(userToken, dataSelf, dataOthers, dataOthersMean, xlims = NULL){
+createBox <- function(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2, dataComp2Mean, xlims = NULL){
 
   if(!userToken %in% userPassword){
     return()
   }
 
   if(is.null(xlims)){
-    xlims <- c(min(dataSelf, min(dataOthers)), max(dataSelf, max(dataOthers)))
+    xlims <- c(0, max(dataSelf, max(dataComp1), max(dataComp2)) + 1)
   }
 
-  dataSelf <- as.data.frame(dataSelf)[userPassword == userToken,]
-  dataOthers <- as.data.frame(dataOthers)[userPassword == userToken,]
-  dataOthersMean <- as.data.frame(dataOthersMean)[userPassword == userToken,]
+  dataSelf <- dataSelf[userPassword == userToken]
+  dataComp1 <- dataComp1[userPassword == userToken,]
+  dataComp1Mean <- dataComp1Mean[userPassword == userToken]
+  dataComp2 <- dataComp2[userPassword == userToken,]
+  dataComp2Mean <- dataComp2Mean[userPassword == userToken]
 
-  dataSelf <- data.frame(ylab = "Self", y = 2, value = dataSelf)
-  dataOthers <- data.frame(ylab = "Others", y = 1, value = melt(dataOthers)$value)
-  dataOthersMean <- data.frame(ylab = "Others Mean", y = 1, value = dataOthersMean)
+  dataSelf <- data.frame(ylab = "Self", y = 3, value = dataSelf)
+  dataComp1 <- data.frame(ylab = "Comp", y = 2, value = melt(dataComp1)$value)
+  dataComp1Mean <- data.frame(ylab = "Comp Mean", y = 2, value = dataComp1Mean)
+  dataComp2 <- data.frame(ylab = "Comp", y = 1, value = melt(dataComp2)$value)
+  dataComp2Mean <- data.frame(ylab = "Comp Mean", y = 1, value = dataComp2Mean)
 
-  data <- rbind(dataSelf, dataOthers, dataOthersMean)
+  data <- rbind(dataSelf, dataComp1, dataComp1Mean, dataComp2, dataComp2Mean)
 
   ggplot(data, aes(x = value, y = y)) +
-    geom_point(aes(color = ylab, fill = ylab, shape = ylab), size = 10, stroke = 0.5) +
-    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 1.7, ymax = 2.3, alpha = 0.05) +
-    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 0.7, ymax = 1.3, alpha = 0.05) +
+    geom_point(aes(color = ylab, fill = ylab, shape = ylab), size = 10, stroke = 0.5, alpha = 0.8) +
+    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 2.8, ymax = 3.2, alpha = 0.01) +
+    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 1.8, ymax = 2.2, alpha = 0.01) +
+    geom_rect(fill = "grey50", xmin = -Inf, xmax = Inf, ymin = 0.8, ymax = 1.2, alpha = 0.01) +
     lims(x = xlims) +
     scale_color_manual(values=rep("black",3)) +
     scale_fill_manual(values=c(COLOR_DEFAULT_PLOT, COLOR_DEFAULT_PLOT, COLOR_DEFAULT_USER)) +
     scale_shape_manual(name="ylab", values = c(21:23)) +
-    scale_y_discrete(labels=c("1" = "Others", "2" = "Self"), limits=c("1","2","1")) +
+    scale_y_discrete(labels=c("1" = "Other 2", "2" = "Other 1", "3" = "Self"), limits=c("1", "2", "3")) +
     labs(color = "ylab", shape = "ylab") +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),

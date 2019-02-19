@@ -146,7 +146,7 @@ server <- function (input, output, session) {
 
   output$simpleBox.desc  <- renderUI({ HTML("Description - Simple Box") })
 
-  output$simpleBox.plot  <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, "fb360_dim1_self"], dataOthers = toydata[, c("fb360_dim1_other1", "fb360_dim1_other2", "fb360_dim1_other3")], dataOthersMean = toydata[, "fb360_dim1_other_mean"], xlims = c(0,5)) })
+  output$simpleBox.plot  <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, c("fb360_dim1_self")], dataComp1 = toydata[, c("fb360_dim1_other1", "fb360_dim1_other2", "fb360_dim1_other3")], dataComp1Mean = toydata[, c("fb360_dim1_other_mean")], dataComp2 = toydata[, c("fb360_dim2_other1", "fb360_dim2_other2", "fb360_dim2_other3")], dataComp2Mean = toydata[, c("fb360_dim2_other_mean")]) })
 
   # Multi Box
   output$multiBox.intro <- renderUI({ HTML("Introduction - Multi Box") })
@@ -155,9 +155,9 @@ server <- function (input, output, session) {
   output$multiBox.desc2 <- renderUI({ HTML("Description - Multi Box for Dimension 2") })
   output$multiBox.desc3 <- renderUI({ HTML("Description - Multi Box for Dimension 3") })
 
-  output$multiBox.plot1 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, "fb360_dim1_self"], dataOthers = toydata[, c("fb360_dim1_other1", "fb360_dim1_other2", "fb360_dim1_other3")], dataOthersMean = toydata[, "fb360_dim1_other_mean"], xlims = c(0,5)) })
-  output$multiBox.plot2 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, "fb360_dim2_self"], dataOthers = toydata[, c("fb360_dim2_other1", "fb360_dim2_other2", "fb360_dim2_other3")], dataOthersMean = toydata[, "fb360_dim2_other_mean"], xlims = c(0,5)) })
-  output$multiBox.plot3 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, "fb360_dim3_self"], dataOthers = toydata[, c("fb360_dim3_other1", "fb360_dim3_other2", "fb360_dim3_other3")], dataOthersMean = toydata[, "fb360_dim3_other_mean"], xlims = c(0,5)) })
+  output$multiBox.plot1 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, c("fb360_dim1_self")], dataComp1 = toydata[, c("fb360_dim1_other1", "fb360_dim1_other2", "fb360_dim1_other3")], dataComp1Mean = toydata[, c("fb360_dim1_other_mean")], dataComp2 = toydata[, c("fb360_dim2_other1", "fb360_dim2_other2", "fb360_dim2_other3")], dataComp2Mean = toydata[, c("fb360_dim2_other_mean")]) })
+  output$multiBox.plot2 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, c("fb360_dim2_self")], dataComp1 = toydata[, c("fb360_dim2_other1", "fb360_dim2_other2", "fb360_dim2_other3")], dataComp1Mean = toydata[, c("fb360_dim2_other_mean")], dataComp2 = toydata[, c("fb360_dim3_other1", "fb360_dim3_other2", "fb360_dim3_other3")], dataComp2Mean = toydata[, c("fb360_dim3_other_mean")]) })
+  output$multiBox.plot3 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, c("fb360_dim3_self")], dataComp1 = toydata[, c("fb360_dim3_other1", "fb360_dim3_other2", "fb360_dim3_other3")], dataComp1Mean = toydata[, c("fb360_dim3_other_mean")], dataComp2 = toydata[, c("fb360_dim1_other1", "fb360_dim1_other2", "fb360_dim1_other3")], dataComp2Mean = toydata[, c("fb360_dim1_other_mean")]) })
 
   # Full Network
   output$fullNetwork.intro <- renderUI({ HTML("Introduction - Full Network") })

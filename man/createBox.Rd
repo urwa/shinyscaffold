@@ -4,16 +4,21 @@
 \alias{createBox}
 \title{Create box plot of self versus others.}
 \usage{
-createBox(userToken, dataSelf, dataOthers, dataOthersMean, xlims = NULL)
+createBox(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2,
+  dataComp2Mean, xlims = NULL)
 }
 \arguments{
 \item{userToken}{A user-specific password to show user position on the plot.}
 
 \item{dataSelf}{Data representing self value.}
 
-\item{dataOthers}{Data representing others values.}
+\item{dataComp1}{Data for comparison 1.}
 
-\item{dataOthersMean}{Data representing mean value among others.}
+\item{dataComp1Mean}{Mean of data for comparison 1.}
+
+\item{dataComp2}{Data for comparison 2.}
+
+\item{dataComp2Mean}{Mean of data for comparison 2.}
 
 \item{xlims}{Limits of x axis. (optional)}
 }
