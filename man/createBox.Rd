@@ -5,7 +5,7 @@
 \title{Create box plot of self versus others.}
 \usage{
 createBox(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2,
-  dataComp2Mean, xlims = NULL)
+  dataComp2Mean, ylabs = NULL, xlims = NULL)
 }
 \arguments{
 \item{userToken}{A user-specific password to show user position on the plot.}
@@ -19,6 +19,8 @@ createBox(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2,
 \item{dataComp2}{Data for comparison 2.}
 
 \item{dataComp2Mean}{Mean of data for comparison 2.}
+
+\item{ylabs}{y labels of the three boxes. (optional)}
 
 \item{xlims}{Limits of x axis. (optional)}
 }
