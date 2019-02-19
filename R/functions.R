@@ -716,10 +716,14 @@ createPie <- function (userToken, data, colors){
 #' @param ylabs y labels of the three boxes. (optional)
 #' @param xlims Limits of x axis. (optional)
 
-createBox <- function(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2, dataComp2Mean, ylabs = c(), xlims = NULL){
+createBox <- function(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2, dataComp2Mean, ylabs = NULL, xlims = NULL){
 
   if(!userToken %in% userPassword){
     return()
+  }
+
+  if(is.null(ylabs)){
+    ylabs = c("YOU", "COMP 1", "COMP 2")
   }
 
   if(is.null(xlims)){
@@ -749,7 +753,7 @@ createBox <- function(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2, 
     scale_color_manual(values=rep("black",3)) +
     scale_fill_manual(values=c(COLOR_DEFAULT_PLOT, COLOR_DEFAULT_PLOT, COLOR_DEFAULT_USER)) +
     scale_shape_manual(name="ylab", values = c(21:23)) +
-    scale_y_discrete(labels=c("1" = ylabs[1], "2" = ylabs[1], "3" = ylabs[0]), limits=c("1", "2", "3")) +
+    scale_y_discrete(labels=c("1" = ylabs[3], "2" = ylabs[2], "3" = ylabs[1]), limits=c("1", "2", "3")) +
     labs(color = "ylab", shape = "ylab") +
     theme(panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
