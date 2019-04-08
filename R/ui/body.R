@@ -103,6 +103,12 @@ shinyBody <- function () {
                   descList = c("multiBox.desc1", "multiBox.desc2", "multiBox.desc3"),
                   plotList = c("multiBox.plot1", "multiBox.plot2", "multiBox.plot3")
                   ),
+      AddSimpleTab(tabId = "simpleQuotes",
+                   plotBox = FALSE,
+                   mainTitle = "Simple Quotes Main Title",
+                   introText = "simpleQuotes.intro",
+                   descList = c("simpleQuotes.desc")
+                   ),
       AddNetworkTab(tabId = "fullNetwork",
                     mainTitle = "Full Network Main Title",
                     introText = "fullNetwork.intro",

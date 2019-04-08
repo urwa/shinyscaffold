@@ -64,6 +64,7 @@ AddIntroductionTab <- function (tabId, mainTitle, introText){
 #'
 #' @param tabId A unique id to identify the tab.
 #' @param inputBox The check if input box should be added.(optional)
+#' @param plotBox The check if plot box should be added. (optional)
 #' @param mainTitle The header of the tab.
 #' @param introText The introduction of the tab.
 #' @param descTitle The title of the description box. (optional)
@@ -81,58 +82,78 @@ AddIntroductionTab <- function (tabId, mainTitle, introText){
 #' * A description box
 #' * A plot box
 
-AddSimpleTab <- function (tabId, inputBox = FALSE,
+AddSimpleTab <- function (tabId, inputBox = FALSE, plotBox = TRUE,
                           mainTitle, introText,
-                          descTitle="Description", descList, descBoxWidth = 7,
+                          descTitle = "Description", descList, descBoxWidth = 7,
                           plotTitle = "Plot", plotList, plotBoxWidth = 5,
                           inputTitle = "Inputs", inputList = NULL, inputBoxWidth = 3){
-  if(!inputBox){
-    tabItem(tabName = tabId,
-            fluidRow(
-              box(
-                title = mainTitle, width = 12,
-                status = STATUS_COLOR, solidHeader = TRUE,
-                htmlOutput(introText)
-              )
-            ),
-            fluidRow(
-              box(title = descTitle, width = descBoxWidth,
+
+  if(plotBox) {
+    if(!inputBox){
+      tabItem(tabName = tabId,
+              fluidRow(
+                box(
+                  title = mainTitle, width = 12,
                   status = STATUS_COLOR, solidHeader = TRUE,
-                  htmlOutput(descList)
+                  htmlOutput(introText)
+                )
               ),
-              box(title = plotTitle, width = plotBoxWidth,
-                  status = STATUS_COLOR, solidHeader = TRUE,
-                  plotOutput(plotList)
+              fluidRow(
+                box(title = descTitle, width = descBoxWidth,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    htmlOutput(descList)
+                ),
+                box(title = plotTitle, width = plotBoxWidth,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    plotOutput(plotList)
+                )
               )
-            )
-    )
-  } else{
-    descBoxWidth = 4;
-    tabItem(tabName = tabId,
-            fluidRow(
-              box(
-                title = mainTitle, width = 12,
-                status = STATUS_COLOR, solidHeader = TRUE,
-                htmlOutput(introText)
-              )
-            ),
-            fluidRow(
-              box(title = descTitle, width = descBoxWidth,
+      )
+    } else{
+      descBoxWidth = 4;
+      tabItem(tabName = tabId,
+              fluidRow(
+                box(
+                  title = mainTitle, width = 12,
                   status = STATUS_COLOR, solidHeader = TRUE,
-                  htmlOutput(descList)
+                  htmlOutput(introText)
+                )
               ),
-              box(title = inputTitle, width = inputBoxWidth,
-                  status = STATUS_COLOR, solidHeader = TRUE,
-                  htmlOutput(inputList)
-              ),
-              box(title = plotTitle, width = plotBoxWidth,
-                  status = STATUS_COLOR, solidHeader = TRUE,
-                  plotOutput(plotList)
+              fluidRow(
+                box(title = descTitle, width = descBoxWidth,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    htmlOutput(descList)
+                ),
+                box(title = inputTitle, width = inputBoxWidth,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    htmlOutput(inputList)
+                ),
+                box(title = plotTitle, width = plotBoxWidth,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    plotOutput(plotList)
+                )
               )
-            )
-    )
+      )
+    }
+  } else {
+      tabItem(tabName = tabId,
+              fluidRow(
+                box(title = mainTitle, width = 12,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    htmlOutput(introText)
+                )
+              ),
+              fluidRow(
+                box(title = descTitle, width = 12,
+                    status = STATUS_COLOR, solidHeader = TRUE,
+                    htmlOutput(descList)
+                )
+              )
+      )
   }
+
 }
+
 
 #' Add multiple tabs in the body.
 #'
@@ -715,7 +736,9 @@ createPie <- function (userToken, data, colors){
 #' @param dataComp2Mean Mean of data for comparison 2.
 #' @param ylabs y labels of the three boxes. (optional)
 #' @param xlims Limits of x axis. (optional)
-
+#'
+#' @return a box plot.
+#'
 createBox <- function(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2, dataComp2Mean, ylabs = NULL, xlims = NULL){
 
   if(!userToken %in% userPassword){
@@ -768,6 +791,34 @@ createBox <- function(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2, 
           legend.title = element_blank(),
           legend.key=element_blank(),
           legend.background = element_blank())
+}
+
+#' Create quotes page.
+#'
+#' @param userToken A user-specific password to show user quotes.
+#' @param data input data of quotes.
+#'
+#'@return user defined quote blocks.
+#'
+createQuotes <- function (userToken, data){
+
+  contentHTML <- ''
+  data <- as.data.frame(data)
+
+  if(userToken %in% userPassword){
+    data <- data[userPassword == userToken,]
+    data <- as.data.frame(data)
+
+    for (i in 1:length(data)){
+      contentHTML <- paste0(contentHTML,
+                            '<p style="border: 2px solid #666; padding: 10px; background-color: #ccc;">',
+                            data[[i]],
+                            '</p>')
+    }
+
+  }
+
+  return (HTML(contentHTML))
 }
 
 #################################

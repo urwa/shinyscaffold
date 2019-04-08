@@ -160,6 +160,11 @@ server <- function (input, output, session) {
   output$multiBox.plot2 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, c("fb360_dim2_self")], dataComp1 = toydata[, c("fb360_dim2_other1", "fb360_dim2_other2", "fb360_dim2_other3")], dataComp1Mean = toydata[, c("fb360_dim2_other_mean")], dataComp2 = toydata[, c("fb360_dim3_other1", "fb360_dim3_other2", "fb360_dim3_other3")], dataComp2Mean = toydata[, c("fb360_dim3_other_mean")]) })
   output$multiBox.plot3 <- renderPlot({ createBox(userToken = input$userToken, dataSelf = toydata[, c("fb360_dim3_self")], dataComp1 = toydata[, c("fb360_dim3_other1", "fb360_dim3_other2", "fb360_dim3_other3")], dataComp1Mean = toydata[, c("fb360_dim3_other_mean")], dataComp2 = toydata[, c("fb360_dim1_other1", "fb360_dim1_other2", "fb360_dim1_other3")], dataComp2Mean = toydata[, c("fb360_dim1_other_mean")]) })
 
+  # Simple Quotes
+  output$simpleQuotes.intro <- renderUI({ HTML("Introduction - Simple Quotes") })
+
+  output$simpleQuotes.desc <- renderUI({ createQuotes(userToken = input$userToken, data = toydata[, c("par1","par2")]) })
+
   # Full Network
   output$fullNetwork.intro <- renderUI({ HTML("Introduction - Full Network") })
 

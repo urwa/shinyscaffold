@@ -4,8 +4,8 @@
 \alias{AddSimpleTab}
 \title{Add a simple tab in the body.}
 \usage{
-AddSimpleTab(tabId, inputBox = FALSE, mainTitle, introText,
-  descTitle = "Description", descList, descBoxWidth = 7,
+AddSimpleTab(tabId, inputBox = FALSE, plotBox = TRUE, mainTitle,
+  introText, descTitle = "Description", descList, descBoxWidth = 7,
   plotTitle = "Plot", plotList, plotBoxWidth = 5,
   inputTitle = "Inputs", inputList = NULL, inputBoxWidth = 3)
 }
@@ -13,6 +13,8 @@ AddSimpleTab(tabId, inputBox = FALSE, mainTitle, introText,
 \item{tabId}{A unique id to identify the tab.}
 
 \item{inputBox}{The check if input box should be added.(optional)}
+
+\item{plotBox}{The check if plot box should be added. (optional)}
 
 \item{mainTitle}{The header of the tab.}
 

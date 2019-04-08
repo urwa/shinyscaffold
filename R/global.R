@@ -4,9 +4,6 @@
 # Anything you want shared between your ui and server, define here.
 ###################
 
-# clear workspace
-# rm(list = ls())
-
 #load libraries
 library(shiny)
 library(shinydashboard)

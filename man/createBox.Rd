@@ -24,6 +24,9 @@ createBox(userToken, dataSelf, dataComp1, dataComp1Mean, dataComp2,
 
 \item{xlims}{Limits of x axis. (optional)}
 }
+\value{
+a box plot.
+}
 \description{
 Create box plot of self versus others.
 }
