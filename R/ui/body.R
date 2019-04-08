@@ -109,6 +109,13 @@ shinyBody <- function () {
                    introText = "simpleQuotes.intro",
                    descList = c("simpleQuotes.desc")
                    ),
+      AddMultiTab(tabId = "multiQuotes",
+                  plotBox = FALSE,
+                  mainTitle = "Multi Quotes Main Title",
+                  introText = "multiQuotes.intro",
+                  headList = c("Heading 1", "Heading 2", "Heading 3"),
+                  descList = c("multiQuotes.desc1", "multiQuotes.desc2", "multiQuotes.desc3")
+                  ),
       AddNetworkTab(tabId = "fullNetwork",
                     mainTitle = "Full Network Main Title",
                     introText = "fullNetwork.intro",

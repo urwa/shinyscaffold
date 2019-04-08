@@ -127,13 +127,14 @@ server <- function (input, output, session) {
   output$simpleScatter.plot <- renderPlot({ createScatter(userToken = input$userToken, data = toydata[, c("cont1", "cont2")]) })
 
   # Fancy Scatter
+  output$fancyScatter.input <- renderUI({ lapply(c("X","Y"), function(x){ selectInput(inputId = paste0("scatter_", x), label = paste0("Parameter ", x), choices = c("cont1", "cont2", "cont3", "cont4"), selected = "cont1" )}) })
+
   output$fancyScatter.intro <- renderUI({ HTML("Introduction - Fancy Scatter")})
 
   output$fancyScatter.desc <- renderUI({ HTML("Description - Fancy Scatter")})
 
   output$fancyScatter.plot <- renderPlot({ createScatter(userToken = input$userToken, data = toydata[, c(input$scatter_X, input$scatter_Y)]) })
 
-  output$fancyScatter.input <- renderUI({ lapply(c("X","Y"), function(x){ selectInput(inputId = paste0("scatter_", x), label = paste0("Parameter ", x), choices = c("cont1", "cont2", "cont3", "cont4"), selected = "cont1" )}) })
 
   # Simple Pie
   output$simplePie.intro <- renderUI({ HTML("Introduction - Simple Pie") })
@@ -164,6 +165,13 @@ server <- function (input, output, session) {
   output$simpleQuotes.intro <- renderUI({ HTML("Introduction - Simple Quotes") })
 
   output$simpleQuotes.desc <- renderUI({ createQuotes(userToken = input$userToken, data = toydata[, c("par1","par2")]) })
+
+  # Multi Quotes
+  output$multiQuotes.intro <- renderUI({ HTML("Introduction - Multi Quotes") })
+
+  output$multiQuotes.desc1 <- renderUI({ createQuotes(userToken = input$userToken, data = toydata[, c("par1","par2")]) })
+  output$multiQuotes.desc2 <- renderUI({ createQuotes(userToken = input$userToken, data = toydata[, c("par1","par2")]) })
+  output$multiQuotes.desc3 <- renderUI({ createQuotes(userToken = input$userToken, data = toydata[, c("par1","par2")]) })
 
   # Full Network
   output$fullNetwork.intro <- renderUI({ HTML("Introduction - Full Network") })

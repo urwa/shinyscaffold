@@ -47,7 +47,8 @@ shinySidebar <- function () {
                                            menuSubItem("MULTI BOX", tabName = "multiBox")
                                            ),
                                   menuItem("QUOTES",
-                                           menuSubItem("SIMPLE_QUOTES", tabName = "simpleQuotes")
+                                           menuSubItem("SIMPLE_QUOTES", tabName = "simpleQuotes"),
+                                           menuSubItem("MULTI_QUOTES", tabName = "multiQuotes")
                                            ),
                                   menuItem("NETWORKS",
                                            menuSubItem("FULL NETWORK", tabName = "fullNetwork"),

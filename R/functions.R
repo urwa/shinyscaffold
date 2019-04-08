@@ -159,6 +159,7 @@ AddSimpleTab <- function (tabId, inputBox = FALSE, plotBox = TRUE,
 #'
 #' @param tabId A unique id to identify the tab.
 #' @param mainTitle The header of the tab.
+#' @param plotBox The check if plot box should be added. (optional)
 #' @param introText The introduction of the tab.
 #' @param headList The list of headings of the dimensions.
 #' @param descList The list of descriptions of the plots.
@@ -173,37 +174,65 @@ AddSimpleTab <- function (tabId, inputBox = FALSE, plotBox = TRUE,
 #' * A description box with multiple tabs
 #' * A plot box with multiple tabs
 
-AddMultiTab <- function (tabId, mainTitle, introText,
+AddMultiTab <- function (tabId, plotBox = TRUE,
+                         mainTitle, introText,
                          headList, descList, plotList,
                          descTitle = "Description", plotTitle = "Plot",
                          descBoxWidth = 7, plotBoxWidth = 5){
-  tabItem(tabName = tabId,
-          fluidRow(
-            box(title = mainTitle, width = 12,
-                status = STATUS_COLOR, solidHeader = TRUE,
-                htmlOutput(introText)
-            )
-          ),
-          fluidRow(
-            do.call(tabBox,
-                    c(id = paste0(tabId, "TB"), width = 12, side = "left",
-                      lapply(1:length(headList), function(i){
-                        tabPanel(
-                          title = headList[[i]],
-                          box(title = descTitle, width = descBoxWidth,
-                              status = STATUS_COLOR, solidHeader = TRUE,
-                              htmlOutput(descList[[i]])
-                          ),
-                          box(title = plotTitle, width = plotBoxWidth,
-                              status = STATUS_COLOR, solidHeader = TRUE,
-                              plotOutput(plotList[[i]])
+
+  if(plotBox){
+    tabItem(tabName = tabId,
+            fluidRow(
+              box(title = mainTitle, width = 12,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  htmlOutput(introText)
+              )
+            ),
+            fluidRow(
+              do.call(tabBox,
+                      c(id = paste0(tabId, "TB"), width = 12, side = "left",
+                        lapply(1:length(headList), function(i){
+                          tabPanel(
+                            title = headList[[i]],
+                            box(title = descTitle, width = descBoxWidth,
+                                status = STATUS_COLOR, solidHeader = TRUE,
+                                htmlOutput(descList[[i]])
+                            ),
+                            box(title = plotTitle, width = plotBoxWidth,
+                                status = STATUS_COLOR, solidHeader = TRUE,
+                                plotOutput(plotList[[i]])
+                            )
                           )
-                        )
-                      })
-                    )
+                        })
+                      )
+              )
             )
-          )
-  )
+    )
+  } else {
+    tabItem(tabName = tabId,
+            fluidRow(
+              box(title = mainTitle, width = 12,
+                  status = STATUS_COLOR, solidHeader = TRUE,
+                  htmlOutput(introText)
+              )
+            ),
+            fluidRow(
+              do.call(tabBox,
+                      c(id = paste0(tabId, "TB"), width = 12, side = "left",
+                        lapply(1:length(headList), function(i){
+                          tabPanel(
+                            title = headList[[i]],
+                            box(title = descTitle, width = 12,
+                                status = STATUS_COLOR, solidHeader = TRUE,
+                                htmlOutput(descList[[i]])
+                            )
+                          )
+                        })
+                      )
+              )
+            )
+    )
+  }
 }
 
 #' Add a network tab in the body.

@@ -4,12 +4,14 @@
 \alias{AddMultiTab}
 \title{Add multiple tabs in the body.}
 \usage{
-AddMultiTab(tabId, mainTitle, introText, headList, descList, plotList,
-  descTitle = "Description", plotTitle = "Plot", descBoxWidth = 7,
-  plotBoxWidth = 5)
+AddMultiTab(tabId, plotBox = TRUE, mainTitle, introText, headList,
+  descList, plotList, descTitle = "Description", plotTitle = "Plot",
+  descBoxWidth = 7, plotBoxWidth = 5)
 }
 \arguments{
 \item{tabId}{A unique id to identify the tab.}
+
+\item{plotBox}{The check if plot box should be added. (optional)}
 
 \item{mainTitle}{The header of the tab.}
 
